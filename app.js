@@ -1,4 +1,5 @@
 const plank = document.getElementById("plank");
+const objectsLayer = document.getElementById("objects-layer");
 
 const objects = [];
 
@@ -28,11 +29,26 @@ function calculateAngle(leftTorque, rightTorque) {
   return limitedAngle;
 }
 
+function renderObjects() {
+  objectsLayer.innerHTML = "";
+
+  objects.forEach((object) => {
+    const el = document.createElement("div");
+    el.classList.add("object");
+    el.innerHTML = object.weight;
+    const x = 200 + object.position;
+    el.style.left = `${x}px`;
+
+    objectsLayer.appendChild(el);
+  });
+}
+
 plank.addEventListener("click", (event) => {
   const plankRect = plank.getBoundingClientRect();
   const clickX = event.clientX - plankRect.left;
   const centerX = plankRect.width / 2;
   const distanceFromCenter = Math.round(clickX - centerX);
+
   const weight = getRandomWeight();
 
   const newObject = {
@@ -41,6 +57,7 @@ plank.addEventListener("click", (event) => {
   };
 
   objects.push(newObject);
+  renderObjects();
 
   const { leftTorque, rightTorque } = calculateTorques(objects);
   const angle = calculateAngle(leftTorque, rightTorque);

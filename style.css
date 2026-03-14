@@ -52,6 +52,21 @@ body {
   transition: transform 0.4s ease;
 }
 
+#objects-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.object {
+  position: absolute;
+  bottom: 10px;
+  width: 20px;
+  height: 20px;
+  background: #4caf50;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
 .pivot {
   position: absolute;
   left: 50%;
