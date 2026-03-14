@@ -31,6 +31,25 @@ plank.addEventListener("click", (event) => {
 
   objects.push(newObject);
 
+  function calculateTorques(objects){
+    let leftTorque = 0;
+    let rightTorque = 0;
+
+    objects.forEach((object) => {
+      if (object.position < 0) {
+        leftTorque += object.weight * Math.abs(object.position);
+      } else if (object.position > 0) {
+        rightTorque += object.weight * object.position;
+      }
+    });
+    return {leftTorque, rightTorque};
+  }
+
+  const { leftTorque, rightTorque } = calculateTorques(objects);
+
+
+  console.log("Left torque:", leftTorque);
+  console.log("Right torque:", rightTorque);
   console.log("Clicked side:", side);
   console.log("Distance from center:", distanceFromCenter);
   console.log("New object:", newObject);
