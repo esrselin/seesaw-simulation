@@ -31,17 +31,31 @@ function calculateAngle(leftTorque, rightTorque) {
 
 function renderObjects() {
   objectsLayer.innerHTML = "";
-
   objects.forEach((object) => {
     const el = document.createElement("div");
     el.classList.add("object");
-    el.innerHTML = object.weight;
     const x = 200 + object.position;
     el.style.left = `${x}px`;
+    const size = 15 + object.weight * 3;
+    el.style.width = `${size}px`;
+    el.style.height = `${size}px`;
+    el.innerHTML = object.weight + "kg";
+    el.style.backgroundColor = getColor(object.weight);
 
     objectsLayer.appendChild(el);
   });
 }
+
+function getColor(weight) {
+  if (weight <= 3)
+    return "#9bed9e";
+  if (weight <= 6)
+    return "#fdb1d7";
+  if (weight <= 9)
+    return "#a2d5ff";
+  return "#ff5250";
+}
+
 
 plank.addEventListener("click", (event) => {
   const plankRect = plank.getBoundingClientRect();
